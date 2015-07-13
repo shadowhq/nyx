@@ -1,0 +1,7 @@
+#!/bin/sh
+
+pid=`pgrep nyx`
+
+if [ "$pid" != "" ]; then
+    kill $pid
+fi

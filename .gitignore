@@ -22,3 +22,19 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+.DS_Store
+
+# intellij
+.idea/
+*.iml
+out/
+/nyx
+/nyx.test
+/nyx.prof
+/nyx.svg
+src/github.com/
+src/golang.org/
+pkg/
+nyx_cover*
+logs/
