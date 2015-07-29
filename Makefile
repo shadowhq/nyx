@@ -28,7 +28,7 @@ gpm:
 	gpm install
 
 nyx.test: $(go_files)
-	go test -cover -covermode=count -c ./src/nyx
+	go test -cover -covermode=count -c ./
 
 test: nyx.test
 	@echo Test nyx
