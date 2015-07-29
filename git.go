@@ -4,16 +4,16 @@ import (
 	git "github.com/libgit2/git2go"
 )
 
-func GetRepo(clone_dir string) *git.Repository {
-	repo, err := git.Clone(clone_dir, "sample_repo", &git.CloneOptions{})
-
+func GetRepo(repo_url string) (*git.Repository, error) {
+	repo, err := git.Clone(repo_url, "sample_repo", &git.CloneOptions{})
 	if err != nil {
-		panic(err)
+		// Pass error up to be dealt with by handler
+		return nil, err
 	}
-
 	if repo == nil {
+		// TODO: Figure out if this would happen without err returned
 		panic(err)
 	}
 
-	return repo
+	return repo, nil
 }
