@@ -29,12 +29,21 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		if gitErr, ok := err.(*git.GitError); ok {
 			var resp NyxResponse
 			switch gitErr.Code {
-			case git.ErrGeneric: // FIXME: generic error given when repo nonexistent.. might catch other errors?
+			// FIXME: generic error given when repo nonexistent.. might catch other errors?
+			case git.ErrGeneric:
 				fmt.Println("Repo not found")
-				resp = NyxResponse{http.StatusBadRequest, NyxError{"Desired repository not found"}, nil}
+				resp = NyxResponse{
+					http.StatusBadRequest,
+					NyxError{"Desired repository not found"},
+					nil,
+				}
 			default:
 				fmt.Println("Unknown cloning error")
-				resp = NyxResponse{http.StatusBadRequest, NyxError{"Error encountered cloning desired repository"}, nil}
+				resp = NyxResponse{
+					http.StatusBadRequest,
+					NyxError{"Error encountered cloning desired repository"},
+					nil,
+				}
 			}
 			if response, err := json.MarshalIndent(resp, "", " "); err != nil {
 				http.Error(w, "Error preparing response", http.StatusInternalServerError)
@@ -42,7 +51,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 				http.Error(w, string(response), resp.Status)
 			}
 		} else {
-			http.Error(w, "Unknown error encountered cloning desired repository", http.StatusBadRequest)
+			http.Error(w, "Unknown error encountered cloning desired repository",
+				http.StatusBadRequest)
 		}
 	} else {
 		fmt.Fprintf(w, "nyx API")
